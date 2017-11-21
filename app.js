@@ -9,7 +9,8 @@ const db = require('./db');
 const resolve = file => path.resolve(__dirname, file);
 //路由
 const signup = require('./routes/signup');
-const signin = require('./routes/signin')
+const signin = require('./routes/signin');
+const user = require('./routes/user');
 const app = express();
 
 app.set('port', (process.env.port || 3100));
@@ -25,6 +26,8 @@ app.use(express.static('dist'));
 app.use('/signup', signup);
 //登陆
 app.use('/signin', signin);
+//好友接口
+app.use('/user', user);
 //主页
 app.get('/', (req, res) => {
   let options = {

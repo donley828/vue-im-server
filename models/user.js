@@ -16,7 +16,6 @@ let userSchema = mongoose.Schema({
   },
   token: {
     type: String,
-    unique: true
   },
   portaitUri: String,
   friends: [{ userId: String, name: String }],

@@ -4,7 +4,7 @@ const db = require('../db');
 
 router.post('/', (req, res) => {
     const { username, password } = req.body;
-    db.User.findOne({ username }, 'password', (err, doc) => {
+    db.User.findOne({ username }, ['token', 'password'], (err, doc) => {
         switch (true) {
             case !!err:
                 console.log(err);
@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
                 res.json({ status: 0, msg: '账号不存在!' });
                 break;
             case doc.password === password:
-                res.json({ status: 1, msg: '登录成功!' });
+                res.json({ status: 1, msg: '登录成功!', data: { token: doc.token } });
                 break;
             case doc.password !== password:
                 res.json({ status: 2, msg: '密码错误!' });

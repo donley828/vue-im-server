@@ -1,7 +1,7 @@
 const express = require('express');
-const http = require('http');
 const router = express.Router();
 const db = require('../db');
+const Userapi = require('../const/user.api');
 
 router.post('/', (req, res) => {
   const { username, name } = req.body;
@@ -13,8 +13,8 @@ router.post('/', (req, res) => {
     } else if (!doc) {
       new db.User(req.body).save()
         .then(() => {
+          Userapi.getToken(username, name);
           res.json({ status: 2, msg: '注册成功' });
-
         })
         .catch((err) => console.log(err));
     } else {
