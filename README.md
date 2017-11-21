@@ -7,5 +7,6 @@
 ## TODO
 - [ ] User and Group information,friend relationship
 - [ ] Remove rongcloud sdk
-- [ ] Use mysql instead of mongoDB
+- [ ] Design social system data base
+    - [ ] Use mysql stead of mongoDB
 
