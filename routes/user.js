@@ -29,6 +29,19 @@ router.post('/addUser', (req, res) => {
   })
 });
 router.post('/agreeUser', (req, res) => {
-  
+
+});
+router.post('/searchUser', (req, res) => {
+  let { username } = req.body;
+  let reg = "/" + username + "/";
+  db.User.find({ username: eval(reg) }, (err, doc) => {
+    if (!!err) {
+      console.log(err);
+      res.json({ status: 0, msg: '服务器错误' });
+    } else if (doc) {
+      res.json({ status: 1, msg: '请求成功', data: doc });
+      res.end();
+    }
+  });
 })
 module.exports = router;
