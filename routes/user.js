@@ -29,7 +29,23 @@ router.post('/addUser', (req, res) => {
   })
 });
 router.post('/agreeUser', (req, res) => {
-
+  let { username, to } = req.body;
+  console.log(req.body);
+  db.User.update({ username: username }, { $push: { friends: { name: to } } }, (err, doc) => {
+    if (!!err) {
+      console.log(err);
+    } else {
+      console.log(doc);
+    }
+  });
+  db.User.update({ username: to }, { $push: { friends: { name: username } } }, (err, doc) => {
+    if (!!err) {
+      console.log(err);
+      res.json({ status: 0, msg: '服务器错误' });
+    } else {
+      res.json({ status: 0, msg: '添加成功' });
+    }
+  });
 });
 router.post('/searchUser', (req, res) => {
   let { username } = req.body;
